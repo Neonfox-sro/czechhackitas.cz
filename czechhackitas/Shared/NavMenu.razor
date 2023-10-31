@@ -1,31 +1,36 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">czechhackitas</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-    </nav>
-</div>
+﻿@using System.Globalization
+ <section class="bg-blueGray-800">
+        <nav class="relative px-6 py-6 bg-black">
+          <div class="flex items-center">
+            <ul class="hidden lg:flex lg:w-auto lg:space-x-12">
+              <li><button @onclick="ChangeLanguage">Change Language</button></li>
+              <li><a class="inline-block text-sm text-gray-50 hover:text-yellow-500 font-medium" href="#">Office</a></li>
+              <li><a class="inline-block text-sm text-gray-50 hover:text-yellow-500 font-medium" href="#">Brand</a></li>
+              <li><a class="inline-block text-sm text-gray-50 hover:text-yellow-500 font-medium" href="#">Stores</a></li>
+            </ul>
+            <div class="lg:hidden">
+              <button class="navbar-burger flex items-center p-3 text-white hover:text-yellow-500">
+                <svg class="block h-4 w-4" stroke="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <title>Mobile menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="hidden lg:flex items-center ml-auto">
+              <a class="inline-block mr-8 font-medium text-white hover:text-yellow-500" href="#">Help</a>
+              <a class="group inline-flex items-center text-sm font-bold" href="#">
+                <span class="text-gray-400 group-hover:text-yellow-500">
+                  <svg width="16" height="18" viewbox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.3333 8.16667V4.83333C11.3333 2.99238 9.84087 1.5 7.99992 1.5C6.15897 1.5 4.66659 2.99238 4.66659 4.83333V8.16667M2.16659 6.5H13.8333L14.6666 16.5H1.33325L2.16659 6.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ml-2 text-white">3</span>
+              </a>
+            </div>
+          </div>
+        </nav>
+      
+      </section>
 
 @code {
     private bool collapseNavMenu = true;
@@ -36,4 +41,19 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+  
+  //create function for change language
+  private void ChangeLanguage()
+  {
+    var language = CultureInfo.CurrentCulture.Name;
+    language = language == "en-US" ? "cs-CZ" : "en-US";
+    
+    Console.WriteLine("Language: " + language);
+    
+    var culture = new CultureInfo(language);
+    CultureInfo.DefaultThreadCurrentCulture = culture;
+    CultureInfo.DefaultThreadCurrentUICulture = culture;
+    StateHasChanged();
+  }
+  
 }
